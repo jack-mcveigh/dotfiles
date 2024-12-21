@@ -1,0 +1,39 @@
+#!/usr/bin/env zsh
+# cspell: disable
+
+# View man pages in Preview.
+pman () {
+	ps=`mktemp -t manpageXXXX`.ps
+	man -t $@ > "$ps"
+	open "$ps"
+}
+
+# Displays mounted drive information in a nicely formatted manner.
+# (See: http://catonmat.net/blog/another-ten-one-liners-from-commandlingfu-explained)
+nicemount () {
+	(echo "DEVICE PATH TYPE FLAGS" && mount | awk '$2="";1') | column -t
+}
+
+# Show all the IP addresses on this machine.
+myip () {
+	ifconfig lo0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "lo0       : " $2}'
+	ifconfig en0 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en0 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en0 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en0 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en1 | grep 'inet ' | sed -e 's/:/ /' | awk '{print "en1 (IPv4): " $2 " " $3 " " $4 " " $5 " " $6}'
+	ifconfig en1 | grep 'inet6 ' | sed -e 's/ / /' | awk '{print "en1 (IPv6): " $2 " " $3 " " $4 " " $5 " " $6}'
+}
+
+# Clean up all python compiled files.
+pyclean () {
+	find . -type f -name '*.py[cod]' -delete -o -type d -name __pycache__ -delete
+}
+
+# Set environment variables from a file.
+setenv () {
+	export $(grep -v '^#' $1 | xargs -0)
+}
+
+# Unset environment variables from a file.
+unsetenv () {
+	unset $(grep -v '^#' $1 | sed -E 's/(.*)=.*/\1/' | xargs)
+}

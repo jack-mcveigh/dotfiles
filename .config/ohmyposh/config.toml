@@ -1,0 +1,192 @@
+"$schema" = "https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/schema.json"
+console_title_template = "{{.Folder}}{{if .Root}} :: root{{end}} :: {{.Shell}}"
+version = 3
+final_space = true
+
+[upgrade]
+notice = true
+interval = "24h"
+auto = false
+source = "cdn"
+
+[secondary_prompt]
+template = '❯❯ '
+foreground = 'magenta'
+background = 'transparent'
+
+[transient_prompt]
+template = '❯ '
+background = 'transparent'
+foreground_templates = [
+  '{{if gt .Code 0}}red{{end}}',
+  '{{if eq .Code 0}}magenta{{end}}',
+]
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = true
+
+  [[blocks.segments]]
+  template = '<magenta>❮</> {{ .Path }}'
+  foreground = 'blue'
+  background = 'transparent'
+  type = 'path'
+  style = 'plain'
+
+    [blocks.segments.properties]
+    cache_duration = 'none'
+    style = 'agnoster_short'
+
+  [[blocks.segments]]
+  template = " {{ .UpstreamIcon }}{{ .HEAD }}{{if .BranchStatus }} {{ .BranchStatus }}{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if gt .StashCount 0 }}  {{ .StashCount }}{{ end }}"
+  foreground = 'green'
+  background = 'transparent'
+  type = 'git'
+  style = 'plain'
+
+    [blocks.segments.properties]
+    branch_icon = ''
+    cache_duration = 'none'
+    commit_icon = '@'
+    fetch_status = true
+    fetch_upstream_icon = true
+    source = "cli"
+
+[[blocks]]
+type = 'prompt'
+alignment = 'right'
+
+  [[blocks.segments]]
+  type = 'executiontime'
+  style = "diamond"
+  leading_diamond = ""
+  trailing_diamond = ""
+  foreground = 'transparent'
+  background = 'magenta'
+  template = '  {{ .FormattedMs }} '
+
+    [blocks.segments.properties]
+    cache_duration = 'none'
+    threshold = 1000
+
+  [[blocks.segments]]
+  type= 'time'
+  style = 'plain'
+  template = '  {{ .CurrentDate | date .Format }}'
+  foreground = 'blue'
+
+    [blocks.segments.properties]
+    time_format = '3:04 PM'
+
+[[blocks]]
+type = 'rprompt'
+overflow = 'hidden'
+
+  [[blocks.segments]]
+  type = "go"
+  style = "diamond"
+  leading_diamond = ""
+  trailing_diamond = ""
+  foreground = "transparent"
+  background = "#7FD5EA"
+  template = "  {{ .Full }} "
+
+  [[blocks.segments]]
+  type = "kotlin"
+  style = "diamond"
+  leading_diamond = ""
+  trailing_diamond = ""
+  foreground = "#ffffff"
+  background = "#906cff"
+  template = " <b>K</b>{{ .Full }} "
+
+  [[blocks.segments]]
+  type = "python"
+  style = "diamond"
+  leading_diamond = ""
+  trailing_diamond = ""
+  foreground = "#100e23"
+  background = "#906cff"
+  template = "  {{ .Full }} "
+
+  [[blocks.segments]]
+  type = "react"
+  style = "diamond"
+  leading_diamond = ""
+  trailing_diamond = ""
+  foreground = "transparent"
+  background = "#81a1c1"
+  template = "  {{ .Full }} "
+
+[[blocks]]
+type = 'prompt'
+alignment = 'left'
+newline = true
+
+  [[blocks.segments]]
+  template = '❯'
+  background = 'transparent'
+  type = 'text'
+  style = 'plain'
+  foreground_templates = [
+    '{{if gt .Code 0}}red{{end}}',
+    '{{if eq .Code 0}}magenta{{end}}',
+  ]
+
+    [blocks.segments.properties]
+    cache_duration = 'none'
+
+[[tooltips]]
+type = "git"
+tips = [ "git", "g" ]
+style = "diamond"
+leading_diamond = ""
+trailing_diamond = ""
+foreground = "transparent"
+background = "green"
+template = " {{ .HEAD }}{{ if .Staging.Changed }}  {{ .Staging.String }}{{ end }}{{ if and (.Working.Changed) (.Staging.Changed) }} |{{ end }}{{ if .Working.Changed }}  {{ .Working.String }}{{ end }} "
+
+  [tooltips.properties]
+  fetch_status = true
+  fetch_upstream_icon = true
+
+[[tooltips]]
+type = "gcp"
+tips = [ "gcloud" ]
+style = "diamond"
+leading_diamond = ""
+trailing_diamond = ""
+foreground = "transparent"
+background = "#47888d"
+template = "  {{.Project}} :: {{.Account}} "
+
+[[tooltips]]
+type = "aws"
+tips = [ "aws" ]
+style = "diamond"
+leading_diamond = ""
+trailing_diamond = ""
+foreground = "transparent"
+background = "#47888d"
+template = "  {{ .Profile }} "
+
+[[tooltips]]
+type = "docker"
+tips = [ "docker" ]
+style = "diamond"
+leading_diamond = ""
+trailing_diamond = ""
+foreground = "white"
+background = "#0B59E7"
+template = "  {{ .Context }} "
+
+[[tooltips]]
+type = "kubectl"
+tips = [ "k", "kubectl" ]
+style = "diamond"
+leading_diamond = ""
+trailing_diamond = ""
+foreground = "white"
+background = "#0B59E7"
+template = " ﴱ {{.Context}} :: {{if .Namespace}}{{.Namespace}}{{else}}default{{end}} "
