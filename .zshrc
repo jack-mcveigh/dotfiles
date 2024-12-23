@@ -55,6 +55,8 @@ fi
 bindkey -e
 bindkey '^p' history-search-backward
 bindkey '^n' history-search-forward
+bindkey '^[[A' up-line-or-search
+bindkey '^[[B' down-line-or-search
 
 # History
 HISTSIZE=5000
