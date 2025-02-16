@@ -2,8 +2,8 @@
 # cspell: disable
 
 # Go library is where all dependencies are stored.
-export GOLIBPATH=/Users/jmcvei885/Developer/golib
+export GOLIBPATH=/Users/jackmcveigh/Developer/golib
 # Go source path is where all my Go code is stored.
-export GOSRCPATH=/Users/jmcvei885/Developer/go
+export GOSRCPATH=/Users/jackmcveigh/Developer/go
 export GOPATH=$GOLIBPATH:$GOSRCPATH
 export PATH=$PATH:$GOLIBPATH/bin:$GOSRCPATH/bin
